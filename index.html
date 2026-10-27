@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111318">
+    <title>Nechi Photo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="logo" href="#">
+            <span>Nechi</span> Photo
+        </a>
+        <div class="top-actions">
+            <span class="status">● Local editing</span>
+            <button id="exportButton" class="primary-button" type="button">Export PNG</button>
+        </div>
+    </header>
+
+    <main class="workspace">
+        <section class="editor">
+            <div class="editor-heading">
+                <div>
+                    <h1>Your creative space</h1>
+                    <p>Edit your photos, your way.</p>
+                </div>
+                <span id="imageInfo">No image selected</span>
+            </div>
+
+            <div id="dropZone" class="canvas-area">
+                <div id="emptyState" class="empty-state">
+                    <h2>Start with a photo</h2>
+                    <p>Choose an image from your device</p>
+                    <button id="chooseButton" class="primary-button" type="button">Choose image</button>
+                    <span class="hint">JPG, PNG or WebP</span>
+                </div>
+
+                <div id="canvasWrapper" hidden>
+                    <canvas id="photoCanvas"></canvas>
+                    <div class="resize-handle nw" data-handle="nw" title="Resize from top left"></div>
+                    <div class="resize-handle n" data-handle="n" title="Resize from top"></div>
+                    <div class="resize-handle ne" data-handle="ne" title="Resize from top right"></div>
+                    <div class="resize-handle w" data-handle="w" title="Resize from left"></div>
+                    <div class="resize-handle e" data-handle="e" title="Resize from right"></div>
+                    <div class="resize-handle sw" data-handle="sw" title="Resize from bottom left"></div>
+                    <div class="resize-handle s" data-handle="s" title="Resize from bottom"></div>
+                    <div class="resize-handle se" data-handle="se" title="Resize from bottom right"></div>
+                </div>
+            </div>
+
+            <div class="bottom-bar">
+                <span id="imageDimensions">Ready to create</span>
+                <button id="resetButton" class="secondary-button" type="button" disabled>Reset</button>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <h2>Tools</h2>
+            <p class="sidebar-description">Your editing tools.</p>
+
+            <section class="tool-panel">
+                <div class="control-heading">
+                    <label for="brightnessSlider">Brightness</label>
+                    <span id="brightnessValue">0</span>
+                </div>
+                <input type="range" id="brightnessSlider" min="-100" max="100" value="0" step="1">
+                <div class="slider-labels"><span>-100</span><span>0</span><span>+100</span></div>
+            </section>
+
+            <section class="tool-panel">
+                <label class="block-label" for="filterSelect">Filter</label>
+                <select id="filterSelect">
+                    <option value="none">Original</option>
+                    <option value="grayscale(100%)">Black &amp; White</option>
+                    <option value="sepia(100%)">Sepia</option>
+                    <option value="contrast(125%) saturate(115%)">Vivid</option>
+                    <option value="saturate(60%)">Muted</option>
+                    <option value="hue-rotate(180deg) saturate(80%)">Cold</option>
+                    <option value="sepia(35%) contrast(110%) saturate(85%)">Vintage</option>
+                </select>
+            </section>
+
+            <section class="tool-panel">
+                <h3>Color correction</h3>
+                <div class="control-group">
+                    <div class="control-heading">
+                        <label for="saturationSlider">Saturation</label>
+                        <span id="saturationValue">100%</span>
+                    </div>
+                    <input type="range" id="saturationSlider" min="0" max="200" value="100" step="1">
+                </div>
+                <div class="control-group">
+                    <div class="control-heading">
+                        <label for="contrastSlider">Contrast</label>
+                        <span id="contrastValue">100%</span>
+                    </div>
+                    <input type="range" id="contrastSlider" min="0" max="200" value="100" step="1">
+                </div>
+                <div class="control-group last">
+                    <div class="control-heading">
+                        <label for="temperatureSlider">Temperature</label>
+                        <span id="temperatureValue">0</span>
+                    </div>
+                    <input type="range" id="temperatureSlider" min="-100" max="100" value="0" step="1">
+                    <div class="slider-labels"><span>Cool</span><span>Warm</span></div>
+                </div>
+            </section>
+
+            <section class="tool-panel">
+                <h3>Resize</h3>
+                <div class="resize-field">
+                    <label for="resizeWidth">Width (px)</label>
+                    <input type="number" id="resizeWidth" min="1" max="10000" step="1">
+                </div>
+                <div class="resize-field">
+                    <label for="resizeHeight">Height (px)</label>
+                    <input type="number" id="resizeHeight" min="1" max="10000" step="1">
+                </div>
+                <label class="ratio-option">
+                    <input type="checkbox" id="keepRatio" checked>
+                    Keep proportions
+                </label>
+                <button id="applyResizeButton" class="primary-button full-width" type="button">Apply size</button>
+                <p class="resize-hint">Drag any white handle around the image, or enter dimensions here. Maximum: 10,000 px.</p>
+            </section>
+
+            <div class="sidebar-footer">Images stay on your device</div>
+        </aside>
+    </main>
+
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden>
+    <script src="app.js"></script>
+</body>
+</html>
